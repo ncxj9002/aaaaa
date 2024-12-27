@@ -37,7 +37,7 @@
             resultElement.textContent = "処理中...";
 
             try {
-                const response = await fetch("https://script.google.com/macros/s/your-script-id/exec?email=" + encodeURIComponent(email));
+                const response = await fetch("https://script.google.com/macros/s/AKfycbylFl6C6MQUywQ5UZUagV5Xx32GsNz-nlLPhtoXquB4jed1Qhnm-nN9pepZWOQD8dHs/exec?email=" + encodeURIComponent(email));
                 const data = await response.json();
                 if (data && data.randomNumber) {
                     resultElement.textContent = `乱数: ${data.randomNumber}`;
