@@ -1,40 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <title>1229四谷ロータス整理番号</title>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>フォーム</title>
     <style>
-        /* すべてのテキストの文字サイズを大きくする */
         body {
-            font-size: 18px; /* デフォルトのフォントサイズを18pxに設定 */
+            font-size: 18px;
         }
-
-        /* 特定の要素に対してサイズを変更する */
         h1 {
-            font-size: 36px; /* 見出し1の文字サイズを36pxに設定 */
+            font-size: 36px;
         }
-
         label, input, button {
-            font-size: 20px; /* ラベル、入力フォーム、ボタンのフォントサイズを20pxに設定 */
+            font-size: 20px;
         }
-
-      #result {
-            font-size: 36px; /* 乱数の文字サイズ */
-            font-weight: bold; /* 太字にする（任意） */
-            color: #007BFF; /* テキストの色を青に変更（任意） */
-            margin-top: 20px; /* 上に余白を追加 */
+        /* デフォルトの乱数表示スタイル */
+        #result {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-  <h1>1229四谷ロータス整理番号</h1>
-  <form action="https://script.google.com/macros/s/AKfycbylFl6C6MQUywQ5UZUagV5Xx32GsNz-nlLPhtoXquB4jed1Qhnm-nN9pepZWOQD8dHs/exec" method="get">
-    <label for="email">メールアドレス:</label>
-    <input type="email" id="email" name="email" required>
-    <button type="submit">送信</button>
-  </form>
+    <h1>メールアドレスを入力してください</h1>
+    <form id="emailForm">
+        <label for="email">メールアドレス:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">送信</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById("emailForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = "処理中...";
+
+            try {
+                const response = await fetch("https://script.google.com/macros/s/your-script-id/exec?email=" + encodeURIComponent(email));
+                const data = await response.json();
+                if (data && data.randomNumber) {
+                    resultElement.textContent = `乱数: ${data.randomNumber}`;
+                    resultElement.style.fontSize = "36px"; // フォントサイズを大きく
+                    resultElement.style.fontWeight = "bold"; // 太字に
+                    resultElement.style.color = "#FF4500"; // オレンジ色に変更
+                } else {
+                    resultElement.textContent = "メールアドレスが見つかりませんでした。";
+                }
+            } catch (error) {
+                resultElement.textContent = "エラーが発生しました。もう一度お試しください。";
+            }
+        });
+    </script>
 </body>
 </html>
-
